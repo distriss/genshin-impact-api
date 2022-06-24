@@ -1,8 +1,26 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const MongoClient = require('mongodb').MongoClient
 const PORT = process.env.PORT || 4000
+require('dotenv').config()
 
+let db,
+    dbConnectionString = process.env.DB_STRING,
+    dbName = 'genshinimpact',
+    collection
+
+MongoClient.connect(dbConnectionString)
+    .then(client => {
+        console.log('Connected to Database')
+        db = client.db(dbName)
+        collection = db.collection('characters')
+    })
+
+app.set('view engine', 'ejs')
+app.use(express.static('public'))
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
 app.use(cors())
 
 const character = {
