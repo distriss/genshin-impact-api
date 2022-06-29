@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient
+const uri = process.env.MONGODB_URI
 
 
 require('dotenv').config()
