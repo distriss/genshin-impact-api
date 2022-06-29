@@ -493,13 +493,14 @@ app.get('/', (request, response) => {
     response.sendFile(__dirname + '/index.html')
 })
 
-app.get('/api/:name', (request, response) => {
-    const name = request.params.name.toLowerCase()
-    if (character[name]) {
-        response.json(character[name])
-    }else {
-        response.json(character['unknown'])
-    }
+app.get('/api/:characterName', (request, response) => {
+    const characterName = request.params.name.toLowerCase()
+        infoCollection.find({name: characterName}).toArray()
+        .then(results => {
+            console.log(results)
+            response.json(results[0])
+        })
+        .catch(error => console.error(error))
 })
 
 app.listen(process.env.PORT || PORT, () => {
