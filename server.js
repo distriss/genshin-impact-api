@@ -7,7 +7,7 @@ require('dotenv').config()
 
 let db,
     dbConnectionString = process.env.DB_STRING,
-    dbName = 'genshinimpact',
+    dbName = 'genshin-impact',
     collection
 
 MongoClient.connect(dbConnectionString)
